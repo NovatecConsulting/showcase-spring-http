@@ -5,3 +5,15 @@
 ----
 SERVER_PORT=8900 ./gradlew :http11-client-pool:bootRun
 ----
+
+.Query
+[source,bash]
+----
+time curl -v http://localhost:8900/delegate/demo &
+----
+
+.Metrics
+[source,bash]
+----
+curl -v http://curl -s localhost:8900/actuator/prometheus
+----
