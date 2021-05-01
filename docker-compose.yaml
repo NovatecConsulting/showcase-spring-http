@@ -84,3 +84,18 @@ services:
     labels:
       SERVICE_9090_NAME: "prometheus"
       SERVICE_9090_TAGS: "platform"
+
+  grafana:
+    image: grafana/grafana:7.5.5
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./platform/grafana/provisioning/:/etc/grafana/provisioning
+    environment:
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+    labels:
+      SERVICE_3000_NAME: "grafana"
+      SERVICE_3000_TAGS: "platform"
