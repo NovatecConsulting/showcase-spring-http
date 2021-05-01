@@ -1,0 +1,19 @@
+version: '2.4'
+services:
+
+  http11-server:
+    image: http11-server:1.0
+    restart: always
+    ports:
+      - 8800:8800
+    environment:
+      SERVER_PORT: 8800
+
+  http11-client:
+    image: http11-client:1.0
+    restart: always
+    ports:
+      - 8900:8900
+    environment:
+      SERVER_PORT: 8900
+      SERVICE_URL_HTTP11_SERVER: http://http11-server:8800

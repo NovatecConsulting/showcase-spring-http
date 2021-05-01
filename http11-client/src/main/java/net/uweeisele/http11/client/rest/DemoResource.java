@@ -1,6 +1,7 @@
-package net.uweeisele.http11.client.pool.rest;
+package net.uweeisele.http11.client.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -12,15 +13,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class DemoResource {
 
     private RestTemplate restTemplate;
+    private String serviceURL;
 
-    @Autowired
-    public DemoResource(RestTemplate restTemplate) {
+    public DemoResource(
+            @Autowired RestTemplate restTemplate,
+            @Value("${service.url.http11-server}") String serviceURL) {
         this.restTemplate = restTemplate;
+        this.serviceURL = serviceURL;
     }
 
     @RequestMapping(method = GET, path = "/demo")
     public String getDemo() {
-        return this.restTemplate.getForObject("http://localhost:8800/demo", String.class);
+        return this.restTemplate.getForObject( serviceURL + "/demo", String.class);
     }
 
 }

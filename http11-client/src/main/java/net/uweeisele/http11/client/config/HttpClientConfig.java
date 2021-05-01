@@ -1,4 +1,4 @@
-package net.uweeisele.http11.client.pool.config;
+package net.uweeisele.http11.client.config;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;

@@ -1,4 +1,4 @@
 rootProject.name = 'http-spring-examples'
 
 include 'http11-server'
-include 'http11-client-pool'
+include 'http11-client'

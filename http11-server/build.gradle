@@ -20,3 +20,8 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+bootJar {
+	layered()
+}
+

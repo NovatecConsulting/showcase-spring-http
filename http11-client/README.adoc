@@ -1,5 +1,11 @@
 = HTTP/1.1 Client with RestTemplate and Connection Pool
 
+.Build Image (see https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/htmlsingle/#build-image)
+[source,bash]
+----
+./gradlew :http11-server:bootBuildImage
+----
+
 .Run
 [source,bash]
 ----

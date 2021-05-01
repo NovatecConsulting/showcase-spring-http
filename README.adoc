@@ -5,6 +5,24 @@
 
 = HTTP Client/Server Examples with Spring Boot
 
+.Build Image (see https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/htmlsingle/#build-image)
+[source,bash]
+----
+./gradlew bootBuildImage
+----
+
+.Run
+[source,bash]
+----
+docker-compose up
+----
+
 == HTTP/1.1 RestTemplate with Connection Pool
 
 https://tech.asimio.net/2016/12/27/Troubleshooting-Spring-RestTemplate-Requests-Timeout.html
+
+.Query
+[source,bash]
+----
+time curl -v http://localhost:8900/delegate/demo &
+----
