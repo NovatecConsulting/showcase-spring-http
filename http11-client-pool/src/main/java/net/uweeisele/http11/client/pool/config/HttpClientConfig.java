@@ -15,36 +15,36 @@ public class HttpClientConfig {
 
     @Bean
     public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager() {
-        PoolingHttpClientConnectionManager result = new PoolingHttpClientConnectionManager();
-        //result.setMaxTotal(20);
-        //result.setDefaultMaxPerRoute(4);
-        return result;
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        //connectionManager.setMaxTotal(20);
+        //connectionManager.setDefaultMaxPerRoute(4);
+        return connectionManager;
     }
 
     @Bean
     public RequestConfig requestConfig() {
-        RequestConfig result = RequestConfig.custom()
+        RequestConfig requestConfig = RequestConfig.custom()
                 //.setConnectionRequestTimeout(2000)
                 //.setConnectTimeout(2000)
                 //.setSocketTimeout(2000)
                 .build();
-        return result;
+        return requestConfig;
     }
 
     @Bean
     public CloseableHttpClient httpClient(PoolingHttpClientConnectionManager poolingHttpClientConnectionManager, RequestConfig requestConfig) {
-        CloseableHttpClient result = HttpClientBuilder
+        CloseableHttpClient httpClient = HttpClientBuilder
                 .create()
                 .setConnectionManager(poolingHttpClientConnectionManager)
                 .setDefaultRequestConfig(requestConfig)
                 .build();
-        return result;
+        return httpClient;
     }
 
     @Bean
     public HttpComponentsClientHttpRequestFactory httpRequestFactory(HttpClient httpClient) {
-        //return new HttpComponentsClientHttpRequestFactory(httpClient);
-        return new HttpComponentsClientHttpRequestFactory();
+        return new HttpComponentsClientHttpRequestFactory(httpClient);
+        //return new HttpComponentsClientHttpRequestFactory();
     }
 
     @Bean
