@@ -1,19 +1,86 @@
+---
 version: '2.4'
-services:
+networks:
+    default:
+      name: ${DOMAIN_NAME}
 
+services:
+  ##########################################################
+  # Apps                                                   #
+  ##########################################################
   http11-server:
-    image: http11-server:1.0
+    image: http11-server:${APPS_VERSION}
     restart: always
     ports:
       - 8800:8800
+      - 8801:8801
     environment:
       SERVER_PORT: 8800
+      MANAGEMENT_SERVER_PORT: 8801
+    labels:
+      SERVICE_8800_NAME: "http11-server"
+      SERVICE_8800_TAGS: "app"
+      SERVICE_8801_NAME: "http11-server-mgmt"
+      SERVICE_8801_TAGS: "app,prometheus"
+      SERVICE_8801_METRICS_PATH: "/actuator/prometheus"
+      SERVICE_8801_METRICS_APP: "http11-server"
+      SERVICE_8801_METRICS_VERSION: "${APPS_VERSION}"
 
   http11-client:
-    image: http11-client:1.0
+    image: http11-client:${APPS_VERSION}
     restart: always
     ports:
       - 8900:8900
+      - 8901:8901
     environment:
       SERVER_PORT: 8900
+      MANAGEMENT_SERVER_PORT: 8901
       SERVICE_URL_HTTP11_SERVER: http://http11-server:8800
+    labels:
+      SERVICE_8900_NAME: "http11-client"
+      SERVICE_8900_TAGS: "app"
+      SERVICE_8901_NAME: "http11-client-mgmt"
+      SERVICE_8901_TAGS: "app,prometheus"
+      SERVICE_8901_METRICS_PATH: "/actuator/prometheus"
+      SERVICE_8901_METRICS_APP: "http11-client"
+      SERVICE_8901_METRICS_VERSION: "${APPS_VERSION}"
+
+  ##########################################################
+  # Platform                                               #
+  ##########################################################
+  consul:
+    image: consul:1.9
+    restart: always
+    ports:
+      - 8500:8500
+      - 8600:8600/udp
+    environment:
+      CONSUL_BIND_INTERFACE: 'eth0'
+      CONSUL_LOCAL_CONFIG: '{ "ui": true,  "domain": "${CONSUL_DOMAIN_NAME}"}'
+    labels:
+      SERVICE_8300_NAME: "consul"
+      SERVICE_8300_TAGS: "platform"
+      SERVICE_8500_NAME: "consul-http"
+      SERVICE_8500_TAGS: "platform"
+      SERVICE_8600_NAME: "consul-dns"
+      SERVICE_8600_TAGS: "platform"
+      SERVICE_8301_IGNORE: "true"
+      SERVICE_8302_IGNORE: "true"
+
+  consul-registrator:
+    image: gliderlabs/registrator:master
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    command: [ "-internal", "consul://consul:8500" ]
+
+  prometheus:
+    image: prom/prometheus:v2.26.0
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./platform/prometheus/config.yaml:/etc/prometheus/prometheus.yml
+    labels:
+      SERVICE_9090_NAME: "prometheus"
+      SERVICE_9090_TAGS: "platform"

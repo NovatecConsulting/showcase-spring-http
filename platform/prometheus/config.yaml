@@ -1,0 +1,39 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first_rules.yml"
+# - "second_rules.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'apps'
+    consul_sd_configs:
+      - server: 'consul:8500'
+        tags:
+          - 'app'
+          - 'prometheus'
+    relabel_configs:
+      - source_labels: [__meta_consul_service_metadata_metrics_path]
+        action: replace
+        target_label: __metrics_path__
+      - source_labels: [__meta_consul_service_metadata_metrics_app]
+        action: replace
+        target_label: app
+      - source_labels: [__meta_consul_service_metadata_metrics_version]
+        action: replace
+        target_label: version
+      - source_labels: [__meta_consul_service]
+        action: replace
+        target_label: consul_service
