@@ -1,0 +1,10 @@
+:toc:
+:toc-title:
+:toclevels: 2
+:sectnums:
+
+= HTTP Client/Server Examples with Spring Boot
+
+== HTTP/1.1 RestTemplate with Connection Pool
+
+https://tech.asimio.net/2016/12/27/Troubleshooting-Spring-RestTemplate-Requests-Timeout.html
