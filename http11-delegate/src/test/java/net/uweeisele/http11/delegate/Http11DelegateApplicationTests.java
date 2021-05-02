@@ -1,10 +1,10 @@
-package net.uweeisele.http11.client;
+package net.uweeisele.http11.delegate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Http11ClientApplicationTests {
+class Http11DelegateApplicationTests {
 
 	@Test
 	void contextLoads() {

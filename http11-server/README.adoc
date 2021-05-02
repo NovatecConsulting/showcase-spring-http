@@ -1,3 +1,8 @@
+:toc:
+:toc-title:
+:toclevels: 2
+:sectnums:
+
 = HTTP/1.1 Server
 
 .Build Image (see https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/htmlsingle/#build-image)
@@ -21,5 +26,5 @@ time curl -v http://localhost:8800/demo &
 .Metrics
 [source,bash]
 ----
-curl -v http://curl -s localhost:8900/actuator/prometheus
+curl -v http://curl -s http://localhost:8900/actuator/prometheus
 ----

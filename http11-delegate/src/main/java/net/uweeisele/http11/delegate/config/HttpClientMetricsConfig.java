@@ -1,4 +1,4 @@
-package net.uweeisele.http11.client.config;
+package net.uweeisele.http11.delegate.config;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.httpcomponents.PoolingHttpClientConnectionManagerMetricsBinder;

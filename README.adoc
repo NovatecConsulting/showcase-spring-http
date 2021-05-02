@@ -17,7 +17,9 @@
 docker-compose up
 ----
 
-== HTTP/1.1 RestTemplate with Connection Pool
+== Scenarios
+
+=== HTTP/1.1 with Spring Web using RestTemplate and Connection Pool
 
 https://tech.asimio.net/2016/12/27/Troubleshooting-Spring-RestTemplate-Requests-Timeout.html
 
@@ -26,3 +28,7 @@ https://tech.asimio.net/2016/12/27/Troubleshooting-Spring-RestTemplate-Requests-
 ----
 time curl -v http://localhost:8900/delegate/demo &
 ----
+
+=== HTTP/1.1 with Spring WebFlux and Netty
+
+https://www.baeldung.com/spring-boot-reactor-netty

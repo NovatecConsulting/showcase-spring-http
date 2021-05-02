@@ -731,7 +731,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "HTTP Client Connections",
-  "uid": "08ozYsrGk",
-  "version": 10
+  "title": "HTTP Connections",
+  "uid": null,
+  "version": 0
 }

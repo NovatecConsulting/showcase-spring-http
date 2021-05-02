@@ -1,0 +1,38 @@
+service:
+  url:
+    http11-server: http://localhost:8800
+
+server:
+  error:
+    include-exception: true
+    include-stacktrace: always
+  tomcat:
+    mbeanregistry:
+      enabled: true
+#    accept-count: 100
+#    max-connections: 8192
+#    threads:
+#      max: 200
+#      min-spare: 10
+#    connection-timeout: 60000
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    distribution:
+      slo:
+        http.server.requests: 10ms,50ms,100ms,500ms,1s,2s,5s,10s,15s,20s,30s,45s,60s
+        http.client.requests: 10ms,50ms,100ms,500ms,1s,2s,5s,10s,15s,20s,30s,45s,60s
+
+logging:
+  level:
+    root: INFO
+    org.apache.http.impl.conn.PoolingHttpClientConnectionManager: DEBUG
+    org.apache.catalina.session: DEBUG
+
+hawtio:
+  authenticationEnabled: false

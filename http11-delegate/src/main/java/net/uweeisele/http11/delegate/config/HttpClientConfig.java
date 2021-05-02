@@ -1,10 +1,11 @@
-package net.uweeisele.http11.client.config;
+package net.uweeisele.http11.delegate.config;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -44,11 +45,14 @@ public class HttpClientConfig {
     @Bean
     public HttpComponentsClientHttpRequestFactory httpRequestFactory(HttpClient httpClient) {
         return new HttpComponentsClientHttpRequestFactory(httpClient);
-        //return new HttpComponentsClientHttpRequestFactory();
     }
 
     @Bean
-    public RestTemplate restTemplate(HttpComponentsClientHttpRequestFactory httpRequestFactory) {
-        return new RestTemplate(httpRequestFactory);
+    public RestTemplate restTemplate(RestTemplateBuilder builder, HttpComponentsClientHttpRequestFactory httpRequestFactory) {
+        // Usage of RestTemplateBuilder instruments RestTemplate with metrics (http_client_requests)
+        RestTemplate restTemplate = builder
+                .requestFactory(() -> httpRequestFactory)
+                .build();
+        return restTemplate;
     }
 }

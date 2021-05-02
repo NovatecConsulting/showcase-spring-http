@@ -1,4 +1,4 @@
-package net.uweeisele.http11.client.rest;
+package net.uweeisele.http11.delegate.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
