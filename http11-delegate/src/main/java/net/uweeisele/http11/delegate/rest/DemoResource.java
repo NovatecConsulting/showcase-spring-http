@@ -32,7 +32,7 @@ public class DemoResource {
     }
 
     @RequestMapping(method = GET, path = "/subcalldemo")
-    public List<String> getMultiDemo(
+    public List<String> getSubCallDemo(
             @RequestParam(required = false, defaultValue = "50") int subCalls,
             @RequestParam(required = false, defaultValue = "PT0.1S") Duration subCallDuration) {
         List<ListenableFuture<String>> results = IntStream.range(0, subCalls)
@@ -44,4 +44,5 @@ public class DemoResource {
                 .map(CompletableFuture::join)
                 .collect(toList());
     }
+
 }
