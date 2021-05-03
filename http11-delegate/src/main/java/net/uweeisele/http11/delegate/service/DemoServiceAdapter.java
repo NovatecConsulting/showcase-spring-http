@@ -8,9 +8,8 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
-import java.net.URI;
 import java.time.Duration;
 
 import static net.uweeisele.support.collections.Maps.entry;
@@ -20,20 +19,18 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 public class DemoServiceAdapter {
 
     private final RestTemplate restTemplate;
-    private final String serviceURL;
 
-    private final UriComponentsBuilder demoUriTemplate;
+    private final UriComponents demoUriTemplate;
 
     public DemoServiceAdapter(
             @Autowired RestTemplate restTemplate,
             @Value("${service.url.http11-server}") String serviceURL) {
         this.restTemplate = restTemplate;
-        this.serviceURL = serviceURL;
 
         this.demoUriTemplate = fromHttpUrl(serviceURL)
                 .path("demo")
                 .queryParam("processDuration", "{processDuration}")
-                .queryParam("resultPostfix", "{resultPostfix}");
+                .queryParam("resultPostfix", "{resultPostfix}").build();
     }
 
     @Async
@@ -51,14 +48,10 @@ public class DemoServiceAdapter {
     }
 
     public String getDemo(Duration processDuration, String resultPostfix) {
-        URI uri = buildDemoUri(processDuration, resultPostfix);
-        return restTemplate.getForObject(uri, String.class);
-    }
-
-    private URI buildDemoUri(Duration processDuration, String resultPostfix) {
-        return demoUriTemplate.build(Maps.of(
+        UriComponents uri = demoUriTemplate.expand(Maps.of(
                 entry("processDuration", processDuration),
-                entry("resultPostfix", resultPostfix)));
-    }
+                entry("resultPostfix", "{resultPostfix}")));
 
+        return restTemplate.getForObject(uri.toUriString(), String.class, Maps.of(entry("resultPostfix", resultPostfix)));
+    }
 }

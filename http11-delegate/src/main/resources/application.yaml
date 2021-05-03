@@ -55,8 +55,8 @@ management:
 logging:
   level:
     root: INFO
-    org.apache.http.impl.conn.PoolingHttpClientConnectionManager: DEBUG
-    org.apache.catalina.session: DEBUG
+    org.apache.http.impl.conn.PoolingHttpClientConnectionManager: INFO
+    org.apache.catalina.session: INFO
 
 hawtio:
   authenticationEnabled: false
