@@ -17,15 +17,15 @@ server:
 #      max: 200
 #      min-spare: 10
 
-spring:
-  task:
-    execution:
-      pool:
-        core-size: 10
-        # max-size and queue-capacity should be configured together, because new threads are only created if queue is full.
-        max-size: 500
-#        queue-capacity: 10
-        keep-alive: 10s
+#spring:
+#  task:
+#    execution:
+#      pool:
+#        core-size: 10
+#        # max-size and queue-capacity should be configured together, because new threads are only created if queue is full.
+#        max-size: 500
+#        queue-capacity: 20
+#        keep-alive: 10s
 
 http:
   client:
