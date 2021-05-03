@@ -27,7 +27,7 @@ import java.time.Duration;
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static net.uweeisele.support.metrics.MicrometerSupport.toMicrometerTags;
-import static net.uweeisele.support.metrics.ReflectionSupport.doIfValueIsPresent;
+import static net.uweeisele.support.reflection.ReflectionSupport.doIfValueIsPresent;
 
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(HttpClientProperties.class)
