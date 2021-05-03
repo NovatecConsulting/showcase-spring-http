@@ -77,3 +77,11 @@ server:
 ----
 
 This exposes additional metrics in addition to `tomcat_sessions_*`.
+
+=== Client
+
+=== Task Thread Pool
+
+https://www.baeldung.com/java-threadpooltaskexecutor-core-vs-max-poolsize
+
+The `ThreadPoolTaskExecutor` delegates its value to the underlying `ThreadPoolExecutor`. The `ThreadPoolExecutor` will only create a new thread when the queue is full up to the maximum pool size.

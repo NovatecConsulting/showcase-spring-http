@@ -32,3 +32,5 @@ time curl -v http://localhost:8900/delegate/demo &
 === HTTP/1.1 with Spring WebFlux and Netty
 
 https://www.baeldung.com/spring-boot-reactor-netty
+
+https://piotrminkowski.com/2020/03/30/a-deep-dive-into-spring-webflux-threading-model/

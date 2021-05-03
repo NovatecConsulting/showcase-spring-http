@@ -8,13 +8,37 @@ server:
     include-stacktrace: always
   tomcat:
     mbeanregistry:
+      # Should be enabled for additional detailed Tomcat metrics
       enabled: true
 #    accept-count: 100
 #    max-connections: 8192
+#    connection-timeout: 60000
 #    threads:
 #      max: 200
 #      min-spare: 10
-#    connection-timeout: 60000
+
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 10
+        # max-size and queue-capacity should be configured together, because new threads are only created if queue is full.
+        max-size: 500
+#        queue-capacity: 10
+        keep-alive: 10s
+
+http:
+  client:
+    use-default-request-factory: true
+#    pool:
+#      max-connections-total: 20
+#      default-max-connections-per-route: 2
+#      time-to-live: 0s
+#      keep-alive: true
+#    request:
+#      connection-request-timeout: 0
+#      connect-timeout: 0
+#      socket-timeout: 0
 
 management:
   endpoints:
