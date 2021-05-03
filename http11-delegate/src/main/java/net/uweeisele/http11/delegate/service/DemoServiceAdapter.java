@@ -1,5 +1,6 @@
 package net.uweeisele.http11.delegate.service;
 
+import net.uweeisele.support.collections.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -7,8 +8,13 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.time.Duration;
+
+import static net.uweeisele.support.collections.Maps.entry;
+import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Component
 public class DemoServiceAdapter {
@@ -16,11 +22,18 @@ public class DemoServiceAdapter {
     private final RestTemplate restTemplate;
     private final String serviceURL;
 
+    private final UriComponentsBuilder demoUriTemplate;
+
     public DemoServiceAdapter(
             @Autowired RestTemplate restTemplate,
             @Value("${service.url.http11-server}") String serviceURL) {
         this.restTemplate = restTemplate;
         this.serviceURL = serviceURL;
+
+        this.demoUriTemplate = fromHttpUrl(serviceURL)
+                .path("demo")
+                .queryParam("processDuration", "{processDuration}")
+                .queryParam("resultPostfix", "{resultPostfix}");
     }
 
     @Async
@@ -28,8 +41,24 @@ public class DemoServiceAdapter {
         return new AsyncResult<>(getDemo(processDuration));
     }
 
+    @Async
+    public ListenableFuture<String> getDemoAsync(Duration processDuration, String resultPostfix) {
+        return new AsyncResult<>(getDemo(processDuration, resultPostfix));
+    }
+
     public String getDemo(Duration processDuration) {
-        return restTemplate.getForObject( serviceURL + "/demo?processDuration=" + processDuration, String.class);
+        return getDemo(processDuration, null);
+    }
+
+    public String getDemo(Duration processDuration, String resultPostfix) {
+        URI uri = buildDemoUri(processDuration, resultPostfix);
+        return restTemplate.getForObject(uri, String.class);
+    }
+
+    private URI buildDemoUri(Duration processDuration, String resultPostfix) {
+        return demoUriTemplate.build(Maps.of(
+                entry("processDuration", processDuration),
+                entry("resultPostfix", resultPostfix)));
     }
 
 }

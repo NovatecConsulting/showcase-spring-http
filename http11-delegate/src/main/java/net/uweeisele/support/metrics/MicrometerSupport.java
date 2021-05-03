@@ -1,4 +1,4 @@
-package net.uweeisele.metrics;
+package net.uweeisele.support.metrics;
 
 import io.micrometer.core.instrument.ImmutableTag;
 import io.micrometer.core.instrument.Tag;

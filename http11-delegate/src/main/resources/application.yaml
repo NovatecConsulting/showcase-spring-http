@@ -5,7 +5,7 @@ service:
 server:
   error:
     include-exception: true
-    include-stacktrace: always
+    include-stacktrace: never
   tomcat:
     mbeanregistry:
       # Should be enabled for additional detailed Tomcat metrics

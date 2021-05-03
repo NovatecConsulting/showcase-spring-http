@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.Optional.ofNullable;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
@@ -14,13 +15,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class DemoResource {
 
     @RequestMapping(method = GET)
-    public String getDemo(@RequestParam Duration processDuration) {
+    public String getDemo(
+            @RequestParam(required = false, defaultValue = "PT10S") Duration processDuration,
+            @RequestParam(required = false) String resultPostfix) {
         try {
             TimeUnit.MILLISECONDS.sleep(processDuration.toMillis());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "demo";
+        return "demo" + ofNullable(resultPostfix).map(v -> "-" + v).orElse("");
     }
 
 }

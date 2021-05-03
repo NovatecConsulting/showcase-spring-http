@@ -1,4 +1,4 @@
-package net.uweeisele.metrics;
+package net.uweeisele.support.metrics;
 
 import org.springframework.util.ReflectionUtils;
 

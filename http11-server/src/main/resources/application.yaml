@@ -1,16 +1,17 @@
 server:
   error:
     include-exception: true
-    include-stacktrace: always
+    include-stacktrace: never
   tomcat:
     mbeanregistry:
+      # Should be enabled for additional detailed Tomcat metrics
       enabled: true
 #    accept-count: 100
 #    max-connections: 8192
+#    connection-timeout: 60000
 #    threads:
 #      max: 200
 #      min-spare: 10
-#    connection-timeout: 60000
 
 management:
   endpoints:

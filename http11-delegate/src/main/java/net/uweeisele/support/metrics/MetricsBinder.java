@@ -1,4 +1,4 @@
-package net.uweeisele.metrics;
+package net.uweeisele.support.metrics;
 
 public interface MetricsBinder<T> {
 

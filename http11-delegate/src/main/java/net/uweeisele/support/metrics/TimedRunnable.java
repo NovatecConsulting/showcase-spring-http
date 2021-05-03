@@ -1,4 +1,4 @@
-package net.uweeisele.metrics;
+package net.uweeisele.support.metrics;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;

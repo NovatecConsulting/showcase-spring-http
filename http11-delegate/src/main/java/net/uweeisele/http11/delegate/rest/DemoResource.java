@@ -31,12 +31,12 @@ public class DemoResource {
         return demoService.getDemo(processDuration);
     }
 
-    @RequestMapping(method = GET, path = "/multidemo")
+    @RequestMapping(method = GET, path = "/subcalldemo")
     public List<String> getMultiDemo(
             @RequestParam(required = false, defaultValue = "50") int subCalls,
             @RequestParam(required = false, defaultValue = "PT0.1S") Duration subCallDuration) {
         List<ListenableFuture<String>> results = IntStream.range(0, subCalls)
-                .mapToObj(n -> demoService.getDemoAsync(subCallDuration))
+                .mapToObj(n -> demoService.getDemoAsync(subCallDuration, String.valueOf(n)))
                 .collect(toList());
 
         return results.stream()
