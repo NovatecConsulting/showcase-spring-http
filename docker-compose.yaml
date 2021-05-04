@@ -23,7 +23,7 @@ services:
       SERVICE_8801_NAME: "http11-server-mgmt"
       SERVICE_8801_TAGS: "app,prometheus"
       SERVICE_8801_METRICS_PATH: "/actuator/prometheus"
-      SERVICE_8801_METRICS_APP: "http11-server"
+      SERVICE_8801_METRICS_SERVICE: "http11-server"
       SERVICE_8801_METRICS_VERSION: "${APPS_VERSION}"
 
   http11-delegate:
@@ -42,7 +42,7 @@ services:
       SERVICE_8901_NAME: "http11-delegate-mgmt"
       SERVICE_8901_TAGS: "app,prometheus"
       SERVICE_8901_METRICS_PATH: "/actuator/prometheus"
-      SERVICE_8901_METRICS_APP: "http11-delegate"
+      SERVICE_8901_METRICS_SERVICE: "http11-delegate"
       SERVICE_8901_METRICS_VERSION: "${APPS_VERSION}"
 
   ##########################################################
@@ -99,3 +99,23 @@ services:
     labels:
       SERVICE_3000_NAME: "grafana"
       SERVICE_3000_TAGS: "platform"
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.38.6
+    restart: always
+    ports:
+      - 9400:8080
+    privileged: true
+    volumes:
+     - /:/rootfs:ro
+     - /var/run:/var/run:ro
+     - /sys:/sys:ro
+     - /var/lib/docker/:/var/lib/docker:ro
+     - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    labels:
+      SERVICE_8080_NAME: "cadvisor"
+      SERVICE_8080_TAGS: "platform,prometheus"
+      SERVICE_8080_METRICS_PATH: "/metrics"
+    command: ["--store_container_labels=false", "--docker_only=true"]

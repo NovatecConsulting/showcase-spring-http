@@ -64,7 +64,11 @@ The configuration options are described very well in those blog posts:
 
 The official _Tomcat_ config documentation can be found at: https://tomcat.apache.org/tomcat-9.0-doc/config/http.html
 
-=== Monitoring
+==== Sessions
+
+Avoid creation of sessions if not necessary: https://www.baeldung.com/spring-security-session
+
+==== Monitoring
 
 In order to enable additional server metrics, enable MBeans for Tomcat:
 

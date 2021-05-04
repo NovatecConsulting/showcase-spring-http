@@ -15,10 +15,21 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 1,
-  "iteration": 1619906312873,
+  "iteration": 1620161551913,
   "links": [],
   "panels": [
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 12,
+      "title": "Server",
+      "type": "row"
+    },
     {
       "aliasColors": {},
       "bars": false,
@@ -35,7 +46,416 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "http_server_requests_seconds_sum{service=~\"$service\"} / http_server_requests_seconds_count{service=~\"$service\"}",
+          "interval": "",
+          "legendFormat": "{{service}}-{{version}} ({{instance}}) ({{method}} {{uri}}) ({{status}})",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Server Connections: Average Duration",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "http_server_requests_seconds_count{service=~\"$service\"} - http_server_requests_seconds_count{service=~\"$service\"} offset 1m",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}-{{version}} ({{instance}}) ({{method}} {{uri}}) ({{status}})",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Server Connections: Completions in last Minute",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 14,
+      "panels": [],
+      "title": "TaskExecutor",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_queued_tasks{service=~\"$service\"}",
+          "interval": "",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Queued Tasks",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 16,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_queue_remaining_tasks{service=~\"$service\"}",
+          "interval": "",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Queue Remaining Tasks",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Client",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 2,
@@ -66,9 +486,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "httpcomponents_httpclient_pool_total_max{app=~\"$app\"}",
+          "expr": "httpcomponents_httpclient_pool_total_max{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -129,10 +549,10 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 21
       },
       "hiddenSeries": false,
-      "id": 3,
+      "id": 15,
       "legend": {
         "avg": false,
         "current": false,
@@ -160,9 +580,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "httpcomponents_httpclient_pool_route_max_default{app=~\"$app\"}",
+          "expr": "httpcomponents_httpclient_pool_total_max{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -170,7 +590,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Client Connections: Default Max Per Route",
+      "title": "Client Connections: Max",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -223,7 +643,7 @@
         "h": 9,
         "w": 8,
         "x": 0,
-        "y": 9
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 4,
@@ -254,9 +674,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "httpcomponents_httpclient_pool_total_pending{app=~\"$app\"}",
+          "expr": "httpcomponents_httpclient_pool_total_pending{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -317,7 +737,7 @@
         "h": 9,
         "w": 8,
         "x": 8,
-        "y": 9
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 5,
@@ -348,9 +768,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "httpcomponents_httpclient_pool_total_connections{app=~\"$app\",state=\"available\"}",
+          "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"available\"}",
           "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -412,7 +832,7 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 9
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 6,
@@ -443,9 +863,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "httpcomponents_httpclient_pool_total_connections{app=~\"$app\",state=\"leased\"}",
+          "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"leased\"}",
           "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}-{{version}} ({{instance}})",
           "refId": "A"
         }
       ],
@@ -489,200 +909,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 7,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "http_server_requests_seconds_sum{app=~\"$app\"} / http_server_requests_seconds_count{app=~\"$app\"}",
-          "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}}) ({{method}} {{uri}}) ({{status}})",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Server Connections: Average Duration",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 8,
-      "interval": null,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "http_server_requests_seconds_count{app=~\"$app\"} - http_server_requests_seconds_count{app=~\"$app\"} offset 1m",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{app}}-{{version}} ({{instance}}) ({{method}} {{uri}}) ({{status}})",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Server Connections: Completions in last Minute",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     }
   ],
+  "refresh": false,
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
@@ -700,17 +929,17 @@
           ]
         },
         "datasource": null,
-        "definition": "label_values(up,app)",
+        "definition": "label_values(up,service)",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": true,
-        "label": "app",
+        "label": "service",
         "multi": true,
-        "name": "app",
+        "name": "service",
         "options": [],
         "query": {
-          "query": "label_values(up,app)",
+          "query": "label_values(up,service)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -733,5 +962,5 @@
   "timezone": "",
   "title": "HTTP Connections",
   "uid": "7V26irrMz",
-  "version": 0
+  "version": 1
 }
