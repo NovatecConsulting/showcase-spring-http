@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1620161551913,
+  "iteration": 1620236555911,
   "links": [],
   "panels": [
     {
@@ -37,7 +37,9 @@
       "dashes": false,
       "datasource": null,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "unit": "s"
+        },
         "overrides": []
       },
       "fill": 0,
@@ -80,7 +82,7 @@
           "exemplar": true,
           "expr": "http_server_requests_seconds_sum{service=~\"$service\"} / http_server_requests_seconds_count{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}}) ({{method}} {{uri}}) ({{status}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{method}} {{uri}} ({{status}})",
           "refId": "A"
         }
       ],
@@ -104,6 +106,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:459",
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -112,6 +115,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:460",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -177,7 +181,7 @@
           "expr": "http_server_requests_seconds_count{service=~\"$service\"} - http_server_requests_seconds_count{service=~\"$service\"} offset 1m",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}}) ({{method}} {{uri}}) ({{status}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{method}} {{uri}} ({{status}})",
           "refId": "B"
         }
       ],
@@ -201,6 +205,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:511",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -209,6 +214,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:512",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -250,20 +256,21 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 12,
+        "w": 8,
         "x": 0,
         "y": 11
       },
       "hiddenSeries": false,
       "id": 3,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -285,7 +292,7 @@
           "exemplar": true,
           "expr": "executor_queued_tasks{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }}",
           "refId": "A"
         }
       ],
@@ -309,6 +316,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:538",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -317,6 +325,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:539",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -345,20 +354,21 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 12,
-        "x": 12,
+        "w": 8,
+        "x": 8,
         "y": 11
       },
       "hiddenSeries": false,
       "id": 16,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -380,7 +390,7 @@
           "exemplar": true,
           "expr": "executor_queue_remaining_tasks{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }}",
           "refId": "A"
         }
       ],
@@ -404,6 +414,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:203",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -412,7 +423,836 @@
           "show": true
         },
         {
+          "$$hashKey": "object:204",
           "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "irate(executor_completed_tasks_total{service=~\"$service\"}[1m])",
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Completed Tasks Rate",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2084",
+          "format": "pps",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2085",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 17,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_pool_size_threads{service=~\"$service\"}",
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Pool Size Threads",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:849",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:850",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_pool_core_threads{service=~\"$service\"}",
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Pool Core Threads",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:355",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:356",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "Additional threads are only added if queue has no remaining elements.",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 19,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_pool_max_threads{service=~\"$service\"}",
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Pool Max Threads",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:407",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:408",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "hiddenSeries": false,
+      "id": 20,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "irate(executor_idle_seconds_sum{service=~\"$service\"}[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (total)",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "irate(executor_idle_seconds_sum{service=~\"$service\"}[1m])/(executor_queued_tasks{service=~\"$service\"}>0)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (avg per task)",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Task Idle Seconds/Second",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:50",
+          "format": "s",
+          "label": null,
+          "logBase": 10,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:51",
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_idle_seconds_max{service=~\"$service\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (max)",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "executor_idle_seconds_sum{service=~\"$service\"} / executor_idle_seconds_count{service=~\"$service\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (avg since start of app)",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Task Idle Seconds/Task",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:50",
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:51",
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 38
+      },
+      "hiddenSeries": false,
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "irate(executor_seconds_sum{service=~\"$service\"}[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (total)",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "irate(executor_seconds_sum{service=~\"$service\"}[1m])/(executor_pool_size_threads{service=~\"$service\"}>0)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (avg per task)",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Task Active Seconds/Second",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:50",
+          "format": "s",
+          "label": null,
+          "logBase": 10,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:51",
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 38
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "executor_seconds_max{service=~\"$service\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (max)",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "executor_seconds_sum{service=~\"$service\"} / executor_seconds_count{service=~\"$service\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ name }} (avg since start of app)",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Executor: Task Active Seconds/Task",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:50",
+          "format": "s",
+          "label": null,
+          "logBase": 10,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:51",
+          "format": "s",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -432,7 +1272,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 47
       },
       "id": 10,
       "panels": [],
@@ -455,7 +1295,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 48
       },
       "hiddenSeries": false,
       "id": 2,
@@ -488,7 +1328,7 @@
           "exemplar": true,
           "expr": "httpcomponents_httpclient_pool_total_max{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
           "refId": "A"
         }
       ],
@@ -512,6 +1352,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:563",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -520,6 +1361,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:564",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -549,7 +1391,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 48
       },
       "hiddenSeries": false,
       "id": 15,
@@ -582,7 +1424,7 @@
           "exemplar": true,
           "expr": "httpcomponents_httpclient_pool_total_max{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
           "refId": "A"
         }
       ],
@@ -606,6 +1448,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:615",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -614,6 +1457,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:616",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -643,7 +1487,7 @@
         "h": 9,
         "w": 8,
         "x": 0,
-        "y": 30
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 4,
@@ -676,7 +1520,7 @@
           "exemplar": true,
           "expr": "httpcomponents_httpclient_pool_total_pending{service=~\"$service\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
           "refId": "A"
         }
       ],
@@ -700,6 +1544,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:667",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -708,6 +1553,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:668",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -737,7 +1583,7 @@
         "h": 9,
         "w": 8,
         "x": 8,
-        "y": 30
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 5,
@@ -770,7 +1616,7 @@
           "exemplar": true,
           "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"available\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
           "refId": "A"
         }
       ],
@@ -794,6 +1640,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:719",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -802,6 +1649,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:720",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -832,7 +1680,7 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 6,
@@ -865,7 +1713,7 @@
           "exemplar": true,
           "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"leased\"}",
           "interval": "",
-          "legendFormat": "{{service}}-{{version}} ({{instance}})",
+          "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
           "refId": "A"
         }
       ],
@@ -889,6 +1737,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:771",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -897,6 +1746,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:772",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -921,6 +1771,7 @@
         "allValue": null,
         "current": {
           "selected": true,
+          "tags": [],
           "text": [
             "All"
           ],
@@ -955,7 +1806,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},

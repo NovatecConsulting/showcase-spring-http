@@ -21,11 +21,12 @@ server:
 #  task:
 #    execution:
 #      pool:
-#        core-size: 10
+#        core-size: 8
 #        # max-size and queue-capacity should be configured together, because new threads are only created if queue is full.
-#        max-size: 500
-#        queue-capacity: 20
-#        keep-alive: 10s
+#        max-size: 2147483647
+#        queue-capacity: 2147483647
+#        keep-alive: 60s
+#        allow-core-thread-timeout: true
 
 http:
   client:
