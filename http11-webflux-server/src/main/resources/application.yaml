@@ -17,7 +17,3 @@ management:
 logging:
   level:
     root: INFO
-    org.apache.catalina.session: INFO
-
-hawtio:
-  authenticationEnabled: false
