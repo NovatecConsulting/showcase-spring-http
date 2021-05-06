@@ -1,0 +1,23 @@
+server:
+  error:
+    include-exception: true
+    include-stacktrace: never
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    distribution:
+      slo:
+        http.server.requests: 10ms,50ms,100ms,500ms,1s,2s,5s,10s,15s,20s,30s,45s,60s
+
+logging:
+  level:
+    root: INFO
+    org.apache.catalina.session: INFO
+
+hawtio:
+  authenticationEnabled: false

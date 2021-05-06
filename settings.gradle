@@ -2,3 +2,4 @@ rootProject.name = 'http-spring-examples'
 
 include 'http11-server'
 include 'http11-delegate'
+include 'http11-webflux-server'

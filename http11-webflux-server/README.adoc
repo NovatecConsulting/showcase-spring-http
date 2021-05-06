@@ -1,0 +1,30 @@
+:toc:
+:toc-title:
+:toclevels: 2
+:sectnums:
+
+= HTTP/1.1 WebFlux Server
+
+.Build Image
+[source,bash]
+----
+./gradlew :http11-webflux-server:bootBuildImage
+----
+
+.Run
+[source,bash]
+----
+SERVER_PORT=8600 ./gradlew :http11-webflux-server:bootRun
+----
+
+.Query
+[source,bash]
+----
+time curl -v http://localhost:8600/demo &
+----
+
+.Metrics
+[source,bash]
+----
+curl -v http://curl -s http://localhost:8600/actuator/prometheus
+----
