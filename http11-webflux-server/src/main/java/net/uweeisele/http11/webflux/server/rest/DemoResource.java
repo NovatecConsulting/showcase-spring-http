@@ -1,5 +1,6 @@
 package net.uweeisele.http11.webflux.server.rest;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +8,6 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
-import static java.util.Optional.ofNullable;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
@@ -19,8 +19,14 @@ public class DemoResource {
             @RequestParam(required = false, defaultValue = "PT10S") Duration processDuration,
             @RequestParam(required = false) String resultPostfix) {
         return Mono
-                .just("demo" + ofNullable(resultPostfix).map(v -> "-" + v).orElse(""))
+                .just(buildResponse("demo", resultPostfix))
                 .delayElement(processDuration);
     }
 
+    private String buildResponse(String prefix, String postfix) {
+        if (Strings.isBlank(postfix)) {
+            return prefix;
+        }
+        return prefix + "-" + postfix;
+    }
 }

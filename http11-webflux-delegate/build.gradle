@@ -13,7 +13,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'org.apache.httpcomponents:httpclient'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 	runtimeOnly project(':jolokia-webflux')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
