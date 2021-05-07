@@ -2,7 +2,7 @@ package net.uweeisele.http11.delegate.config;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.httpcomponents.PoolingHttpClientConnectionManagerMetricsBinder;
-import net.uweeisele.support.metrics.MetricsBinder;
+import net.uweeisele.http11.webflux.delegate.support.metrics.MetricsBinder;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.NoConnectionReuseStrategy;
@@ -26,8 +26,8 @@ import java.time.Duration;
 
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static net.uweeisele.support.metrics.MicrometerSupport.toMicrometerTags;
-import static net.uweeisele.support.reflection.ReflectionSupport.doIfValueIsPresent;
+import static net.uweeisele.http11.webflux.delegate.support.metrics.MicrometerSupport.toMicrometerTags;
+import static net.uweeisele.http11.webflux.delegate.support.reflection.ReflectionSupport.doIfValueIsPresent;
 
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(HttpClientProperties.class)

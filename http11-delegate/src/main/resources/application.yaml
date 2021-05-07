@@ -53,6 +53,10 @@ management:
         http.server.requests: 10ms,50ms,100ms,250ms,500ms,750ms,1s,2s,5s,10s,15s,20s,30s,45s,60s,90s
         http.client.requests: 10ms,50ms,100ms,250ms,500ms,750ms,1s,2s,5s,10s,15s,20s,30s,45s,60s,90s
 
+spring:
+  jmx:
+    enabled: true
+
 logging:
   level:
     root: INFO

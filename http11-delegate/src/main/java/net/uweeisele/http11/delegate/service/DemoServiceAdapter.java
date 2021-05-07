@@ -1,6 +1,6 @@
 package net.uweeisele.http11.delegate.service;
 
-import net.uweeisele.support.collections.Maps;
+import net.uweeisele.http11.webflux.delegate.support.collections.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponents;
 
 import java.time.Duration;
 
-import static net.uweeisele.support.collections.Maps.entry;
+import static net.uweeisele.http11.webflux.delegate.support.collections.Maps.entry;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Component

@@ -1,0 +1,27 @@
+server:
+  error:
+    include-exception: true
+    include-stacktrace: never
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+      base-path: /
+
+spring:
+  jmx:
+    enabled: true
+
+logging:
+  level:
+    root: INFO
+
+hawtio:
+  authenticationEnabled: false
+  proxyAllowlist: "*"

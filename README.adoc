@@ -34,3 +34,5 @@ time curl -v http://localhost:8900/delegate/demo &
 https://www.baeldung.com/spring-boot-reactor-netty
 
 https://piotrminkowski.com/2020/03/30/a-deep-dive-into-spring-webflux-threading-model/
+
+https://gist.github.com/taxone/cb99ea494466c659cdc12ae419f82814

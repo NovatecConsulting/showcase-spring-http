@@ -137,3 +137,15 @@ services:
       SERVICE_8080_TAGS: "platform,prometheus"
       SERVICE_8080_METRICS_PATH: "/metrics"
     command: ["--store_container_labels=false", "--docker_only=true"]
+
+  hawtio:
+    image: hawtio:${APPS_VERSION}
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      SERVER_PORT: 8000
+    labels:
+      SERVICE_8000_NAME: "hawtio"
+      SERVICE_8000_TAGS: "platform,prometheus"
+      SERVICE_8000_METRICS_PATH: "/prometheus"

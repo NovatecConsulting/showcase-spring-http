@@ -14,13 +14,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-	runtimeOnly 'org.jolokia:jolokia-core'
+	runtimeOnly project(':jolokia-webflux')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-configurations {
-	runtimeOnly.exclude module: 'spring-boot-starter-tomcat'
-	implementation.exclude module: 'spring-boot-starter-tomcat'
 }
 
 test {
