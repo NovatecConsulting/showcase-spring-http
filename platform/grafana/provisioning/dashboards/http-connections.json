@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1620247606365,
+  "iteration": 1620494105559,
   "links": [],
   "panels": [
     {
@@ -733,7 +733,7 @@
           }
         }
       ],
-      "title": "Tomcat",
+      "title": "Server Connections (Tomcat)",
       "type": "row"
     },
     {
@@ -1206,6 +1206,176 @@
               "selected": false,
               "text": "/delegate/subcalldemo",
               "value": "/delegate/subcalldemo"
+            }
+          },
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum(increase(http_server_requests_seconds_bucket{service=~\"$service\",uri=~\"$http_server_uri\",outcome!=\"SUCCESS\"}[$__interval])) by (le)",
+              "format": "heatmap",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{ le }}",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Server Request Latency: $http_server_uri (ERROR)",
+          "tooltip": {
+            "show": true,
+            "showHistogram": false
+          },
+          "type": "heatmap",
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateOranges",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "datasource": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 12
+          },
+          "heatmap": {},
+          "hideZeroBuckets": false,
+          "highlightCards": true,
+          "id": 81,
+          "interval": null,
+          "legend": {
+            "show": false
+          },
+          "maxDataPoints": 100,
+          "maxPerRow": 2,
+          "pluginVersion": "7.5.5",
+          "repeatDirection": "v",
+          "repeatIteration": 1620494105559,
+          "repeatPanelId": 32,
+          "reverseYBuckets": false,
+          "scopedVars": {
+            "http_server_uri": {
+              "selected": false,
+              "text": "/actuator/prometheus",
+              "value": "/actuator/prometheus"
+            }
+          },
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum(increase(http_server_requests_seconds_bucket{service=~\"$service\",uri=~\"$http_server_uri\",outcome=\"SUCCESS\"}[$__interval])) by (le)",
+              "format": "heatmap",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{ le }}",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Server Request Latency: $http_server_uri (SUCCESS)",
+          "tooltip": {
+            "show": true,
+            "showHistogram": false
+          },
+          "type": "heatmap",
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateOranges",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "datasource": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 12
+          },
+          "heatmap": {},
+          "hideZeroBuckets": false,
+          "highlightCards": true,
+          "id": 82,
+          "interval": null,
+          "legend": {
+            "show": false
+          },
+          "maxDataPoints": 100,
+          "maxPerRow": 2,
+          "pluginVersion": "7.5.5",
+          "repeatDirection": "v",
+          "repeatIteration": 1620494105559,
+          "repeatPanelId": 34,
+          "reverseYBuckets": false,
+          "scopedVars": {
+            "http_server_uri": {
+              "selected": false,
+              "text": "/actuator/prometheus",
+              "value": "/actuator/prometheus"
             }
           },
           "targets": [
@@ -2781,7 +2951,7 @@
           }
         }
       ],
-      "title": "Client Connections",
+      "title": "Client Connections (Apache Client)",
       "type": "row"
     },
     {
@@ -3294,176 +3464,6 @@
           "yBucketBound": "auto",
           "yBucketNumber": null,
           "yBucketSize": null
-        },
-        {
-          "cards": {
-            "cardPadding": null,
-            "cardRound": null
-          },
-          "color": {
-            "cardColor": "#b4ff00",
-            "colorScale": "sqrt",
-            "colorScheme": "interpolateOranges",
-            "exponent": 0.5,
-            "mode": "spectrum"
-          },
-          "dataFormat": "tsbuckets",
-          "datasource": null,
-          "description": "",
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 0,
-            "y": 16
-          },
-          "heatmap": {},
-          "hideZeroBuckets": false,
-          "highlightCards": true,
-          "id": 81,
-          "interval": null,
-          "legend": {
-            "show": false
-          },
-          "maxDataPoints": 100,
-          "maxPerRow": 2,
-          "pluginVersion": "7.5.5",
-          "repeatDirection": "v",
-          "repeatIteration": 1620247606365,
-          "repeatPanelId": 51,
-          "reverseYBuckets": false,
-          "scopedVars": {
-            "http_client_uri": {
-              "selected": false,
-              "text": "/demo?processDuration=PT0.095S&resultPostfix={resultPostfix}",
-              "value": "/demo?processDuration=PT0.095S&resultPostfix={resultPostfix}"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "sum(increase(http_client_requests_seconds_bucket{service=~\"$service\",uri=~\"$http_client_uri\",outcome=\"SUCCESS\"}[$__interval])) by (le)",
-              "format": "heatmap",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{ le }}",
-              "refId": "B"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Client Request Latency: $http_client_uri (SUCCESS)",
-          "tooltip": {
-            "show": true,
-            "showHistogram": false
-          },
-          "type": "heatmap",
-          "xAxis": {
-            "show": true
-          },
-          "xBucketNumber": null,
-          "xBucketSize": null,
-          "yAxis": {
-            "decimals": null,
-            "format": "short",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true,
-            "splitFactor": null
-          },
-          "yBucketBound": "auto",
-          "yBucketNumber": null,
-          "yBucketSize": null
-        },
-        {
-          "cards": {
-            "cardPadding": null,
-            "cardRound": null
-          },
-          "color": {
-            "cardColor": "#b4ff00",
-            "colorScale": "sqrt",
-            "colorScheme": "interpolateOranges",
-            "exponent": 0.5,
-            "mode": "spectrum"
-          },
-          "dataFormat": "tsbuckets",
-          "datasource": null,
-          "description": "",
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 12,
-            "y": 16
-          },
-          "heatmap": {},
-          "hideZeroBuckets": false,
-          "highlightCards": true,
-          "id": 82,
-          "interval": null,
-          "legend": {
-            "show": false
-          },
-          "maxDataPoints": 100,
-          "maxPerRow": 2,
-          "pluginVersion": "7.5.5",
-          "repeatDirection": "v",
-          "repeatIteration": 1620247606365,
-          "repeatPanelId": 55,
-          "reverseYBuckets": false,
-          "scopedVars": {
-            "http_client_uri": {
-              "selected": false,
-              "text": "/demo?processDuration=PT0.095S&resultPostfix={resultPostfix}",
-              "value": "/demo?processDuration=PT0.095S&resultPostfix={resultPostfix}"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "sum(increase(http_client_requests_seconds_bucket{service=~\"$service\",uri=~\"$http_client_uri\",outcome!=\"SUCCESS\"}[$__interval])) by (le)",
-              "format": "heatmap",
-              "hide": false,
-              "instant": false,
-              "interval": "",
-              "legendFormat": "{{ le }}",
-              "refId": "B"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Client Request Latency: $http_client_uri (ERROR)",
-          "tooltip": {
-            "show": true,
-            "showHistogram": false
-          },
-          "type": "heatmap",
-          "xAxis": {
-            "show": true
-          },
-          "xBucketNumber": null,
-          "xBucketSize": null,
-          "yAxis": {
-            "decimals": null,
-            "format": "short",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true,
-            "splitFactor": null
-          },
-          "yBucketBound": "auto",
-          "yBucketNumber": null,
-          "yBucketSize": null
         }
       ],
       "title": "Client Latency Histogram",
@@ -3480,8 +3480,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "http11-delegate",
-          "value": "http11-delegate"
+          "text": "http11-webflux-delegate",
+          "value": "http11-webflux-delegate"
         },
         "datasource": null,
         "definition": "label_values(up,service)",
@@ -3579,5 +3579,5 @@
   "timezone": "",
   "title": "HTTP Connections",
   "uid": "7V26irrMz",
-  "version": 13
+  "version": 1
 }
