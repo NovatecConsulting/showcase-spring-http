@@ -35,7 +35,7 @@ public class DemoResource {
     public List<String> getSubCallDemo(
             @RequestParam(required = false, defaultValue = "50") int subCalls,
             @RequestParam(required = false, defaultValue = "PT0.1S") Duration subCallDuration) {
-        List<ListenableFuture<String>> results = IntStream.range(0, subCalls)
+        final List<ListenableFuture<String>> results = IntStream.range(0, subCalls)
                 .mapToObj(n -> demoService.getDemoAsync(subCallDuration, String.valueOf(n)))
                 .collect(toList());
 

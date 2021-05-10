@@ -1,4 +1,4 @@
-package net.uweeisele.http11.webflux.delegate.support.reflection;
+package net.uweeisele.http11.delegate.support.reflection;
 
 import org.springframework.util.ReflectionUtils;
 
@@ -12,12 +12,12 @@ public final class ReflectionSupport {
 
     @SuppressWarnings("unchecked")
     public static <T> boolean doIfValueIsPresent(Object obj, String fieldName, Class<T> fieldType, Consumer<T> consumer) {
-        Field field = ReflectionUtils.findField(obj.getClass(), fieldName);
+        final Field field = ReflectionUtils.findField(obj.getClass(), fieldName);
         if (field != null) {
             if (!field.canAccess(obj)) {
                 field.setAccessible(true);
             }
-            Object value = ReflectionUtils.getField(field, obj);
+            final Object value = ReflectionUtils.getField(field, obj);
             if(value != null && fieldType.isAssignableFrom(value.getClass())) {
                 consumer.accept((T) value);
             }

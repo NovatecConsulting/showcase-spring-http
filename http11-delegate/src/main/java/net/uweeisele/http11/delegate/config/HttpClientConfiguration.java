@@ -2,7 +2,7 @@ package net.uweeisele.http11.delegate.config;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.httpcomponents.PoolingHttpClientConnectionManagerMetricsBinder;
-import net.uweeisele.http11.webflux.delegate.support.metrics.MetricsBinder;
+import net.uweeisele.http11.delegate.support.metrics.MetricsBinder;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.NoConnectionReuseStrategy;
@@ -26,8 +26,8 @@ import java.time.Duration;
 
 import static java.util.Optional.ofNullable;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static net.uweeisele.http11.webflux.delegate.support.metrics.MicrometerSupport.toMicrometerTags;
-import static net.uweeisele.http11.webflux.delegate.support.reflection.ReflectionSupport.doIfValueIsPresent;
+import static net.uweeisele.http11.delegate.support.metrics.MicrometerSupport.toMicrometerTags;
+import static net.uweeisele.http11.delegate.support.reflection.ReflectionSupport.doIfValueIsPresent;
 
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(HttpClientProperties.class)
@@ -99,9 +99,9 @@ public class HttpClientConfiguration {
     @Bean
     @ConditionalOnProperty(prefix = "http.client" ,name = "use-default-request-factory", havingValue = "true")
     public HttpComponentsClientHttpRequestFactory httpRequestFactoryDefault(MetricsBinder<PoolingHttpClientConnectionManager> metricsBinder) {
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        final HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         //Instrument with metrics if possible.
-        //This is only done be able to monitor default implementation for demonstration purpose.
+        //This is only done in order to be able to monitor default implementation for demonstration purpose.
         //Do not do this in production, set a custom ConnectionManager instead.
         doIfValueIsPresent(factory.getHttpClient(), "connManager", PoolingHttpClientConnectionManager.class, connManager ->
                 metricsBinder.monitor(connManager, "global")
@@ -124,4 +124,5 @@ public class HttpClientConfiguration {
                 .requestFactory(() -> httpRequestFactory)
                 .build();
     }
+
 }

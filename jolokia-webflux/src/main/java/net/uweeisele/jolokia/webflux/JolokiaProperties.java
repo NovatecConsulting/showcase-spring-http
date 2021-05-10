@@ -18,7 +18,9 @@ public class JolokiaProperties {
     public static class Scheduler {
 
         private int threadCapacity = max(1, getRuntime().availableProcessors() / 2);
+
         private int queuedTaskCapacity = Integer.MAX_VALUE;
+
         private String name = "jolokiaScheduler";
 
         public int getThreadCapacity() {

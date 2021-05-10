@@ -30,7 +30,7 @@ public record JolokiaEndpoint(HttpRequestHandler requestHandler,  Scheduler sche
     }
 
     private String handleGetRequest(URI uri, MultiValueMap<String, String> queryParams) {
-        String pathInfo = pathInfo(uri);
+        final String pathInfo = pathInfo(uri);
         return requestHandler
                 .handleGetRequest(uri.toString(), pathInfo, getParameterMap(queryParams))
                 .toJSONString();
@@ -58,7 +58,7 @@ public record JolokiaEndpoint(HttpRequestHandler requestHandler,  Scheduler sche
     }
 
     private static String pathInfo(String path) {
-        int idx = path.indexOf(ENDPOINT_NAME);
+        final int idx = path.indexOf(ENDPOINT_NAME);
         String jolokiaPath = path.substring(idx + ENDPOINT_NAME.length());
         if (jolokiaPath.startsWith("/")) {
             jolokiaPath = jolokiaPath.substring(1);

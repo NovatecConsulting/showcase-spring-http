@@ -1,4 +1,4 @@
-package net.uweeisele.http11.webflux.delegate.support.metrics;
+package net.uweeisele.http11.delegate.support.metrics;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
@@ -21,7 +21,7 @@ public class TimedTaskDecorator implements TaskDecorator {
     public TimedTaskDecorator(MeterRegistry registry, String executorName,
                                 String metricPrefix, Iterable<Tag> tags) {
         this.registry = registry;
-        Tags finalTags = Tags.concat(tags, "name", executorName);
+        final Tags finalTags = Tags.concat(tags, "name", executorName);
         this.executionTimer = registry.timer(metricPrefix + "executor", finalTags);
         this.idleTimer = registry.timer(metricPrefix + "executor.idle", finalTags);
     }

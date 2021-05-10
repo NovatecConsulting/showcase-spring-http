@@ -1,7 +1,21 @@
 server:
+  #  port: 8080
+  shutdown: graceful
+  #  http2:
+  #    enabled: true
+  #  netty:
+  #    connection-timeout:
   error:
     include-exception: true
     include-stacktrace: never
+
+netty:
+  event-loop:
+    metrics: true
+  #    select-count: -1
+  #    worker-count: 8
+  http-server:
+    protocols: http11
 
 management:
   endpoints:

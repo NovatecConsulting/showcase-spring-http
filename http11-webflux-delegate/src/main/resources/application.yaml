@@ -3,33 +3,35 @@ service:
     http11-server: http://localhost:8600
 
 server:
+#  port: 8080
+  shutdown: graceful
+#  http2:
+#    enabled: true
+#  netty:
+#    connection-timeout:
   error:
     include-exception: true
     include-stacktrace: never
 
-#spring:
-#  task:
-#    execution:
-#      pool:
-#        core-size: 8
-#        # max-size and queue-capacity should be configured together, because new threads are only created if queue is full.
-#        max-size: 2147483647
-#        queue-capacity: 2147483647
-#        keep-alive: 60s
-#        allow-core-thread-timeout: true
-
-http:
-  client:
-    use-default-request-factory: true
-#    pool:
-#      max-connections-total: 20
-#      default-max-connections-per-route: 2
-#      time-to-live: 0s
-#      keep-alive: true
-#    request:
-#      connection-request-timeout: 0
-#      connect-timeout: 0
-#      socket-timeout: 0
+netty:
+  event-loop:
+    metrics: true
+#    select-count: -1
+#    worker-count: 8
+  http-server:
+    protocols: http11
+  http-client:
+    protocols: http11
+#    connect-timeout: 1s
+#    socket-timeout: 5s
+#    response-timeout: 10s
+#    connection:
+#      max-connections: 500
+#      pending-acquire-max-count: -1
+#      pending-acquire-timeout: 45s
+#      leasing-strategy: fifo
+#      max-idle-time: 5m
+#      max-life-time: 1d
 
 management:
   endpoints:
@@ -50,4 +52,3 @@ spring:
 logging:
   level:
     root: INFO
-    org.apache.http.impl.conn.PoolingHttpClientConnectionManager: INFO

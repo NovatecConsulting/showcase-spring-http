@@ -1,7 +1,5 @@
 server:
-  error:
-    include-exception: true
-    include-stacktrace: never
+  shutdown: graceful
   tomcat:
     mbeanregistry:
       # Should be enabled for additional detailed Tomcat metrics
@@ -12,6 +10,9 @@ server:
 #    threads:
 #      max: 200
 #      min-spare: 10
+  error:
+    include-exception: true
+    include-stacktrace: never
 
 management:
   endpoints:
@@ -32,6 +33,3 @@ logging:
   level:
     root: INFO
     org.apache.catalina.session: INFO
-
-hawtio:
-  authenticationEnabled: false

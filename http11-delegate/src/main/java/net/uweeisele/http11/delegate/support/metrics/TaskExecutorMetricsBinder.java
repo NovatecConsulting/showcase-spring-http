@@ -1,4 +1,4 @@
-package net.uweeisele.http11.webflux.delegate.support.metrics;
+package net.uweeisele.http11.delegate.support.metrics;
 
 import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.binder.BaseUnits;
@@ -32,7 +32,7 @@ public class TaskExecutorMetricsBinder {
     }
 
     public void monitor(ThreadPoolTaskExecutor executor, String executorName) {
-        Iterable<Tag> executorTags = Tags.concat(tags, "name", executorName);
+        final Iterable<Tag> executorTags = Tags.concat(tags, "name", executorName);
         monitorThreadPoolTaskExecutor(executor, executorTags);
         monitorThreadPoolExecutor(executor, executorTags);
     }

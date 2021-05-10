@@ -38,11 +38,11 @@ public class JolokiaEndpointAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnBean(JolokiaEndpoint.class)
     public HttpRequestHandler jolokiaHttpRequestHandler() {
-        org.jolokia.config.Configuration config = new org.jolokia.config.Configuration(
+        final org.jolokia.config.Configuration config = new org.jolokia.config.Configuration(
                 AGENT_ID, getAgentId(hashCode(),"reactive"));
-        LogHandler logHandler = new JulLogHandler();
-        Restrictor restrictor = RestrictorFactory.createRestrictor(config, logHandler);
-        BackendManager backendManager = new BackendManager(config, logHandler, restrictor);
+        final LogHandler logHandler = new JulLogHandler();
+        final Restrictor restrictor = RestrictorFactory.createRestrictor(config, logHandler);
+        final BackendManager backendManager = new BackendManager(config, logHandler, restrictor);
         return new HttpRequestHandler(config, backendManager, logHandler);
     }
 

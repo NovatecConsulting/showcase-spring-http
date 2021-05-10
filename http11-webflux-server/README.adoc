@@ -28,5 +28,3 @@ time curl -v http://localhost:8600/demo &
 ----
 curl -v http://curl -s http://localhost:8600/actuator/prometheus
 ----
-
-https://stackoverflow.com/questions/17355593/why-is-epoll-faster-than-select

@@ -1,7 +1,7 @@
 package net.uweeisele.http11.delegate.config;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import net.uweeisele.http11.webflux.delegate.support.metrics.MetricsTaskExecutorCustomizer;
+import net.uweeisele.http11.delegate.support.metrics.MetricsTaskExecutorCustomizer;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.task.TaskExecutorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import static net.uweeisele.http11.webflux.delegate.support.metrics.MicrometerSupport.toMicrometerTags;
+import static net.uweeisele.http11.delegate.support.metrics.MicrometerSupport.toMicrometerTags;
 import static org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME;
 import static org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor.DEFAULT_TASK_EXECUTOR_BEAN_NAME;
 

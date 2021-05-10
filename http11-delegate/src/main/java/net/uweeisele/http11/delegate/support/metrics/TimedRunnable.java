@@ -1,4 +1,4 @@
-package net.uweeisele.http11.webflux.delegate.support.metrics;
+package net.uweeisele.http11.delegate.support.metrics;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -22,7 +22,7 @@ public class TimedRunnable implements Runnable {
     @Override
     public void run() {
         idleSample.stop(idleTimer);
-        Timer.Sample executionSample = Timer.start(registry);
+        final Timer.Sample executionSample = Timer.start(registry);
         try {
             command.run();
         } finally {

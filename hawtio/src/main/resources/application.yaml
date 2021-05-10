@@ -1,10 +1,11 @@
 server:
-  error:
-    include-exception: true
-    include-stacktrace: never
+  shutdown: graceful
   tomcat:
     mbeanregistry:
       enabled: true
+  error:
+    include-exception: true
+    include-stacktrace: never
 
 management:
   endpoints:

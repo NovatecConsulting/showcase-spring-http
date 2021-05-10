@@ -18,7 +18,7 @@ This application accepts requests at `GET /delegate/demo/` and forwards this req
 .Run
 [source,bash]
 ----
-SERVER_PORT=8900 ./gradlew :http11-delegate:bootRun
+SERVER_PORT=8900 MANAGEMENT_SERVER_PORT=8901 ./gradlew :http11-delegate:bootRun
 ----
 
 .Query
@@ -30,7 +30,7 @@ time curl -v http://localhost:8900/delegate/demo &
 .Metrics
 [source,bash]
 ----
-curl -v http://curl -s http://localhost:8900/actuator/prometheus
+curl -v http://curl -s http://localhost:8901/actuator/prometheus
 ----
 
 == Implementation
@@ -83,6 +83,8 @@ server:
 This exposes additional metrics in addition to `tomcat_sessions_*`.
 
 === Client
+
+https://tech.asimio.net/2016/12/27/Troubleshooting-Spring-RestTemplate-Requests-Timeout.html
 
 === Task Thread Pool
 

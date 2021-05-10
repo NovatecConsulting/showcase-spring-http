@@ -13,7 +13,7 @@ public class HttpClientProperties {
 
     /**
      * If set to true, the default HttpComponentsClientHttpRequestFactory is used. All other configuration is ignored!
-     * Default: false
+     * <p>Default: false
      */
     private boolean useDefaultRequestFactory = false;
 
@@ -45,28 +45,28 @@ public class HttpClientProperties {
 
         /**
          * Maximum limit of connection in total.
-         * Default: 20
+         * <p>Default: 20
          */
         private Integer maxConnectionsTotal;
 
         /**
          * Maximum limit of connection per route (host:port).
-         * Default: 2
+         * <p>Default: 2
          */
         private Integer defaultMaxConnectionsPerRoute;
 
         /**
          *  The total time to live of a persistent connection. A connection will never be re-used beyond its TTL.
-         *  One of the purpose of the TTL parameter is ensure a more equal redistribution of persistent connection across a cluster of nodes.
-         *  A value of zero or less is interpreted as an infinite TTL.
-         *  Default: -1ms
+         *  <p>One of the purpose of the TTL parameter is ensure a more equal redistribution of persistent connection across a cluster of nodes.
+         *  <p>A value of zero or less is interpreted as an infinite TTL.
+         *  <p>Default: -1ms
          */
         private Duration timeToLive;
 
         /**
          * Defines whether connections are re-used or not.
-         * If set to false, pooling is actually disabled.
-         * Default: true
+         * <p>If set to false, pooling is actually disabled.
+         * <p>Default: true
          */
         private Boolean keepAlive;
 
@@ -107,22 +107,22 @@ public class HttpClientProperties {
 
         /**
          * The timeout used when requesting a connection from the connection manager.
-         * A timeout value of zero is interpreted as an infinite timeout. A value of -1ms is interpreted as undefined.
-         * Default: -1ms
+         * <p>A timeout value of zero is interpreted as an infinite timeout. A value of -1ms is interpreted as undefined.
+         * <p>Default: -1ms
          */
         private Duration connectionRequestTimeout;
 
         /**
          * The timeout until a connection is established.
-         * A timeout value of zero is interpreted as an infinite timeout. A value of -1ms is interpreted as undefined.
-         * Default: -1ms
+         * <p>A timeout value of zero is interpreted as an infinite timeout. A value of -1ms is interpreted as undefined.
+         * <p>Default: -1ms
          */
         private Duration connectTimeout;
 
         /**
          * The socket timeout, which is the timeout for waiting for data or, put differently, a maximum period inactivity between two consecutive data packets).
-         * A timeout value of zero is interpreted as an infinite timeout. A value of -1ms is interpreted as undefined.
-         * Default: -1ms
+         * <p>A timeout value of zero is interpreted as an infinite timeout. A value of -1ms is interpreted as undefined.
+         * <p>Default: -1ms
          */
         private Duration socketTimeout;
 

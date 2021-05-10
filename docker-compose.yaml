@@ -36,6 +36,11 @@ services:
       SERVER_PORT: 8080
       MANAGEMENT_SERVER_PORT: 8081
       SERVICE_URL_HTTP11_SERVER: http://http11-server:8080
+      #HTTP_CLIENT_USE_DEFAULT_REQUEST_FACTORY: "false"
+      #HTTP_CLIENT_POOL_MAX_CONNECTIONS_TOTAL: 25
+      #HTTP_CLIENT_POOL_DEFAULT_MAX_CONNECTIONS_PER_ROUTE: 25
+      #SPRING_TASK_EXECUTION_POOL_MAX_SIZE: 25
+      #SPRING_TASK_EXECUTION_POOL_QUEUE_CAPACITY: 100
     labels:
       SERVICE_8080_NAME: "http11-delegate"
       SERVICE_8080_TAGS: "app"
@@ -54,6 +59,7 @@ services:
     environment:
       SERVER_PORT: 8080
       MANAGEMENT_SERVER_PORT: 8081
+      #NETTY_HTTP_SERVER_PROTOCOLS: h2c
     labels:
       SERVICE_8080_NAME: "http11-webflux-server"
       SERVICE_8080_TAGS: "app"
@@ -73,6 +79,8 @@ services:
       SERVER_PORT: 8080
       MANAGEMENT_SERVER_PORT: 8081
       SERVICE_URL_HTTP11_SERVER: http://http11-webflux-server:8080
+      #NETTY_HTTP_SERVER_PROTOCOLS: h2c
+      #NETTY_HTTP_CLIENT_PROTOCOLS: h2c
     labels:
       SERVICE_8080_NAME: "http11-webflux-delegate"
       SERVICE_8080_TAGS: "app"

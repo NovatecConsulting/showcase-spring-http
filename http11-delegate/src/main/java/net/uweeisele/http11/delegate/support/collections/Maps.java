@@ -1,13 +1,16 @@
-package net.uweeisele.http11.webflux.delegate.support.collections;
+package net.uweeisele.http11.delegate.support.collections;
 
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Map builder which supports null keys and values.
+ */
 public final class Maps {
 
     public static <K,V> Map.Entry<K, V> entry(K key, V value) {
-        return new AbstractMap.SimpleEntry<>(key, value);
+        return new SimpleEntry<>(key, value);
     }
 
     public static <K, V> Map<K, V> of(Map.Entry<K, V>... entries) {
@@ -17,5 +20,4 @@ public final class Maps {
         }
         return map;
     }
-
 }

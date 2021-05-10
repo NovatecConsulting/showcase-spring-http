@@ -3,28 +3,22 @@
 :toclevels: 2
 :sectnums:
 
-= HTTP/1.1 Server
+= Hawtio
 
-.Build Image (see https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/htmlsingle/#build-image)
+Hawtio is a web console for accessing JMX metrics of applications, exposed via Jolokia.
+
+== Quick Start
+
+.Build Image
 [source,bash]
 ----
-./gradlew :http11-server:bootBuildImage
+./gradlew :hawtio:bootBuildImage
 ----
 
 .Run
 [source,bash]
 ----
-SERVER_PORT=8800 ./gradlew :http11-server:bootRun
+SERVER_PORT=8000 ./gradlew :hawtio:bootRun
 ----
 
-.Query
-[source,bash]
-----
-time curl -v http://localhost:8800/demo &
-----
-
-.Metrics
-[source,bash]
-----
-curl -v http://curl -s http://localhost:8900/actuator/prometheus
-----
+Open browser at http://localhost:8000/hawtio

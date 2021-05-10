@@ -15,6 +15,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 	runtimeOnly 'org.jolokia:jolokia-core'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

@@ -3,36 +3,309 @@
 :toclevels: 2
 :sectnums:
 
-= HTTP Client/Server Examples with Spring Boot
+= HTTP Examples with Spring Boot
 
-.Build Image (see https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/htmlsingle/#build-image)
+This showcase has the goal to demonstrate different libraries for HTTP communication with Spring Boot:
+
+* Spring Web
+* Spring WebFlux (Reactive)
+
+In addition, some pitfalls of those libraries are demonstrated and how to solve them.
+
+Apart from this, this showcase shows how to monitor important application metrics, like server and client connections as well as thread pool stats.
+
+== Quick Start
+
+.Build Docker Images
 [source,bash]
 ----
 ./gradlew bootBuildImage
 ----
 
-.Run
+.Run Demo Environment
 [source,bash]
 ----
 docker-compose up
 ----
 
+The demo environment includes all demo applications of this repository, as well as a small
+monitoring platform which includes Prometheus and Grafana, as well as Consul as Service Registry in order to automatically
+register new services as targets to Prometheus.
+
+If you open your browser at http://localhost:3000, Grafana is opened. The Dashboard `HTTP Connections` provides a lot of
+information about the internals of this demo applications.
+
+.Stop Demo Environment
+[source,bash]
+----
+docker-compose down -v
+----
+
 == Scenarios
+
+To evaluate the behavior of the different implementations the _delegate_ example services all provide
+a `GET /delegate/demo` and a `GET /delegate/subcalldemo` endpoint.
+
+`GET /delegate/demo` directly forwards the request to the `GET /demo` endpoint of the corresponding _server_ application.
+In order to evaluate behaviour of multiple parallel calls, the _server_ endpoint blocks for a specified amount of time,
+which is by default 10s. This amount of time can be specified with the query parameter `processDuration`
+(for example `GET /delegate/demo?processDuration=PT10S`).
+
+`GET /delegate/subcalldemo` is similar but executes a configurable number of parallel sub-calls to
+`GET /demo` endpoint of the corresponding _server_ application.
+By default, 50 sub-calls are executed, each taking 100ms before the _server_ application responses.
+This means, that if all sub-calls would be executed in sequence, the call would take 5s.
+The number of sub-calls, as well as the duration per sub-call can be configured with the query parameters
+`subCalls` and `subCallDuration` (for example `GET /delegate/subcalldemo?subCalls=50&subCallDuration=PT0.1S`).
+
+To give you a detailed overview about the behaviour the used connection pools and executors are bound to
+Micrometer's meter registry.
+If you navigate to http://localhost:3000/ and open the Dashboard `HTTP Connections`, you find a comprehensive overview about all demo applications.
+
+This helps you to experiment with the configurations in order to get a better understanding of their consequences.
 
 === HTTP/1.1 with Spring Web using RestTemplate and Connection Pool
 
-https://tech.asimio.net/2016/12/27/Troubleshooting-Spring-RestTemplate-Requests-Timeout.html
+The Spring Web _delegate_ application configures a _RestTemplate_ with a default configured HTTP connection pool.
+
+[source,java]
+----
+@Configuration
+public class RestTemplateConfiguration {
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder
+                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory())
+                .build();
+    }
+}
+----
+
+Now let's execute a call to `GET /delegate/subcalldemo`:
 
 .Query
 [source,bash]
 ----
-time curl -v http://localhost:8900/delegate/demo &
+time curl http://localhost:8900/delegate/subcalldemo &
 ----
+
+The request will return after ~1 second (50 sub-calls could be executed within 1 second).
+
+.Response
+----
+curl http://localhost:8900/delegate/subcalldemo  0,00s user 0,00s system 0% cpu 1,032 total
+----
+
+If you execute this command multiple times one right after the other, you will recognize that the execution time increases.
+
+.Responses
+----
+curl http://localhost:8900/delegate/subcalldemo  0,00s user 0,00s system 0% cpu 1,027 total
+curl http://localhost:8900/delegate/subcalldemo  0,00s user 0,00s system 0% cpu 1,823 total
+curl http://localhost:8900/delegate/subcalldemo  0,00s user 0,00s system 0% cpu 2,369 total
+curl http://localhost:8900/delegate/subcalldemo  0,01s user 0,00s system 0% cpu 2,918 total
+curl http://localhost:8900/delegate/subcalldemo  0,00s user 0,01s system 0% cpu 3,606 total
+----
+
+Now let's do the same with the `GET /delegate/demo` endpoint (which blocks for 10s in the _server_ application).
+Execute this command 10 times one right after the other.
+
+.Query
+[source,bash]
+----
+for i in $(seq 1 10); do time curl http://localhost:8900/delegate/demo &; done
+----
+
+You will recognize, that 5 calls return after 10 seconds, and another 5 calls after 20 seconds.
+
+The reason for this is, that by default the used `HttpComponentsClientHttpRequestFactory` creates a connection pool,
+which only allows 5 connections per host. That is basically the reason why only 5 calls are executed in parallel
+and why the sub call command takes 1 second. If additional commands are executed, they need to wait for free connections.
+
+The number of connections can be specified with the following configuration:
+
+[source,java]
+----
+@Configuration
+public class RestTemplateConfiguration {
+    @Bean
+    public HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory() {
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        connectionManager.setMaxTotal(20);
+        connectionManager.setDefaultMaxPerRoute(20);
+        return new HttpComponentsClientHttpRequestFactory(
+                HttpClientBuilder.create()
+                    .setConnectionManager(connectionManager)
+                    .build()
+        );
+    }
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder, HttpComponentsClientHttpRequestFactory clientHttpRequestFactory) {
+        return builder
+                .requestFactory(() -> clientHttpRequestFactory)
+                .build();
+    }
+}
+----
+
+Important is the `DefaultMaxPerRoute` configuration. This is 5 by default and specifies the maximum number of connections to one host.
+If for example the host address is always the same (for example because of server side load balancing), this limits the number of
+connections independent of the value specified at `MaxTotal`.
+
+The value of the number of allowed connections in the pool should be configured depending on the required amount and what the server endpoint can handle.
+
+In order to experiment with this setting you can set the environment variables (docker-compose.yaml):
+
+* `HTTP_CLIENT_USE_DEFAULT_REQUEST_FACTORY=false`
+* `HTTP_CLIENT_POOL_MAX_CONNECTIONS_TOTAL=25`
+* `HTTP_CLIENT_POOL_DEFAULT_MAX_CONNECTIONS_PER_ROUTE=25`
+
+In addition, it is also important to configure corresponding timeouts and time-to-live to ensure that unused connections are eventually closed
+(especially if a large amount of connections is configured).
+
+Let's return to the `GET /delegate/subcalldemo` calls. If you execute the _curl_ command to this endpoint again, you will
+recognize, that it's faster now, but still needs ~700ms to complete.
+
+[source,bash]
+----
+time curl http://localhost:8900/delegate/subcalldemo &
+----
+
+If you now execute this command every 700ms, it should work without an increase of the duration per request.
+
+[source,bash]
+----
+while true; do sleep 0.7; time curl http://localhost:8900/delegate/subcalldemo &; done
+----
+
+However, if the interval is increased just a bit, so that the request is executed every 600ms, you will probably notice
+that the duration continously increases.
+
+[source,bash]
+----
+while true; do sleep 0.6; time curl http://localhost:8900/delegate/subcalldemo &; done
+----
+
+The reason basically is that the maximum workload per second has been achieved.
+
+However, with 25 connections in parallel you may have expected that the request returns in `duration = (duration/sub-call * sub-calls) / parallelism`
+which is `(0.1s/sub-call * 50sub-calls) / 25 connections = 0.2s`.
+
+Let's adjust the equation to calculate the actual number of parallelism:
+`parallelism = (duration/sub-call * sub-calls) / duration` which is `(0.1s/sub-call * 50sub-calls) / ~0.7s = ~7.14`
+
+The cause for this simply is, that the thread pool which we used to execute the sub-calls in parallel is limited to 8 threads.
+Therefore, at the moment, increasing the number of max connections to a value higher than 8 has no impact.
+
+In order to execute the sub-calls in parallel, Spring's `@Async` feature was used:
+
+[source,java]
+----
+@Component
+public class DemoServiceAdapter {
+    @Async
+    public ListenableFuture<String> getDemoAsync(Duration processDuration) {
+        return new AsyncResult<>(getDemo(processDuration));
+    }
+}
+----
+
+For execution, behind the scene
+Spring uses a `ThreadPoolTaskExecutor`, which is instantiated by `TaskExecutionAutoConfiguration` class.
+
+However, the default configuration of this executor is limited to a maximum number of 8 threads:
+
+[source,yaml]
+----
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 2147483647
+        queue-capacity: 2147483647
+----
+
+You may wonder why the number of threads is not increased, because the _max-size_ is unlimited.
+The reason is, that _queue-capacity_ is also unlimited. `ThreadPoolTaskExecutor` only adds new threads if the
+queue capacity is reached. This is basically also true some other _Executor_ implementations like for example `ThreadPoolExecutor`
+Therefore, _max-size_ and _queue-capacity_ should be configured together.
+For additional information about thread pools see: link:https://www.baeldung.com/thread-pool-java-and-guava[Introduction to Thread Pools in Java]
+
+Let's come back to the current maximum achievable workload per second:
+`sub-calls = duration * parallelism / duration/sub-call` which is `1s * 8threads / 0.1s = 80 sub-calls/sec`
+which in turn corresponds to a maximum of 1.6 requests/sec.
+
+The expected duration per request is `duration = (duration/sub-call * sub-calls) / parallelism`
+which is `(0.1s/sub-call * 50sub-calls) / 8threads = 0.625s`.
+
+This is nearly exactly what the experiments showed. At the moment, when we execute more than one request within 0.625s
+the service cannot handle the load anymore. What basically happens is that more tasks are added to the task queue
+for the `ThreadPoolTaskExecutor` than the executors can process.
+
+Now let's increase the number of threads for the task execution, by setting _max-size_ to 25 and _queue-capacity_ to 100.
+This can be done by defining the following environment variables (docker-compose-yaml):
+
+* `SPRING_TASK_EXECUTION_POOL_MAX_SIZE=25`
+* `SPRING_TASK_EXECUTION_POOL_QUEUE_CAPACITY=100`
+
+If you now execute the request again every second, nothing will change. The duration still is ~700ms.
+
+[source,bash]
+----
+while true; do sleep 1; time curl http://localhost:8900/delegate/subcalldemo &; done
+----
+
+However, if you increase the rate to every 0.5 seconds:
+
+[source,bash]
+----
+while true; do sleep 0.5; time curl http://localhost:8900/delegate/subcalldemo &; done
+----
+
+You will notice that first the duration increases, but than dramatically is reduced to ~350ms.
+The reason for this is, that by executing the request every second, the task queue size stays below 100.
+Increasing the rate beyond the workload limit of 1.6 requests/second to 2 requests/second causes the queue to continously grow.
+If the 100 task limit is reached, an additional thread is created. This is repeated until the maximum thread size is reached,
+or the queue size no longer reaches the configured limit.
+The latter was the case at our example.
+
+If the rate in turn is increased to 4 requests/second, it creates all 25 threads and with ~200ms we achieve the expected duration of a request.
+
+If you play with this demo application, it is possible that a `RejectedExecutionException` is thrown.
+This happens if the maximum thread count is reached, and the task queue is full. For more details about this behaviour see:
+link:https://www.baeldung.com/java-rejectedexecutionhandler[Guide to RejectedExecutionHandler].
+
+This shows that it is possible to increase the possible workload which an application can handle.
+However, in order to do this in a proper and sustainable way, a comprehensive observability of the entire application
+is inevitable. The Spring Boot Actuator provides a good starting point. It can expose metrics in the prometheus format,
+like it is done in this demo application. However, by default not much metrics are exposed.
+Because actuator uses Micrometer for metrics, this is easily extensible. For most libraries there are already Micrometer
+metric extensions available. On this demo application, for example additional metrics are enabled for server connections,
+server requests, client connections, client requests as well as used thread pools.
 
 === HTTP/1.1 with Spring WebFlux and Netty
 
-https://www.baeldung.com/spring-boot-reactor-netty
+tbd
 
-https://piotrminkowski.com/2020/03/30/a-deep-dive-into-spring-webflux-threading-model/
+[source,bash]
+----
+time curl http://localhost:8700/delegate/subcalldemo
+----
 
-https://gist.github.com/taxone/cb99ea494466c659cdc12ae419f82814
+=== HTTP/2 with Spring WebFlux and Netty
+
+tbd
+
+[source,bash]
+----
+time curl --http2-prior-knowledge http://localhost:8700/delegate/subcalldemo
+----
+
+== Next Steps
+
+* More detailed explanation about monitoring and activation of metrics for connection pools, server and thread pools.
+* Spring Web: Use RestTemplate with DeferredResult (https://www.baeldung.com/spring-deferred-result)
+* Spring Web: Tomcat and Apache Client (RestTemplate) with HTTP/2 and Streaming (TEXT_EVENT_STREAM_VALUE) (in combination with DeferredResult)
+* Spring WebFlux: Evaluate incubator HTTP/3 (https://netty.io/news/2021/03/04/http3-0-0-1-Final.html and https://netty.io/news/2020/12/09/quic-0-0-1-Final.html)

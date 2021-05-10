@@ -1,4 +1,4 @@
-rootProject.name = 'http-spring-examples'
+rootProject.name = 'showcase-spring-http'
 
 include 'http11-server'
 include 'http11-delegate'

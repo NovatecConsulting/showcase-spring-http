@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1620494105559,
+  "iteration": 1620495383927,
   "links": [],
   "panels": [
     {
@@ -2482,21 +2482,22 @@
           "fill": 0,
           "fillGradient": 0,
           "gridPos": {
-            "h": 9,
-            "w": 12,
+            "h": 13,
+            "w": 24,
             "x": 0,
             "y": 5
           },
           "hiddenSeries": false,
           "id": 2,
           "legend": {
+            "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
+            "current": true,
+            "max": true,
+            "min": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
@@ -2518,18 +2519,50 @@
               "exemplar": true,
               "expr": "httpcomponents_httpclient_pool_total_max{service=~\"$service\"}",
               "interval": "",
-              "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
+              "legendFormat": "Max Total",
               "refId": "A"
+            },
+            {
+              "exemplar": true,
+              "expr": "httpcomponents_httpclient_pool_route_max_default{service=~\"$service\"}",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Max Per Route",
+              "refId": "B"
+            },
+            {
+              "exemplar": true,
+              "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"leased\"}",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Active",
+              "refId": "C"
+            },
+            {
+              "exemplar": true,
+              "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"available\"}",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Idle",
+              "refId": "D"
+            },
+            {
+              "exemplar": true,
+              "expr": "httpcomponents_httpclient_pool_total_pending{service=~\"$service\"}",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Pending",
+              "refId": "E"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Client Connections: Max",
+          "title": "Apache Client Connections",
           "tooltip": {
             "shared": true,
-            "sort": 2,
+            "sort": 0,
             "value_type": "individual"
           },
           "type": "graph",
@@ -2564,7 +2597,22 @@
             "align": false,
             "alignLevel": null
           }
-        },
+        }
+      ],
+      "title": "Client Connections (Apache)",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 84,
+      "panels": [
         {
           "aliasColors": {},
           "bars": false,
@@ -2578,117 +2626,22 @@
           "fill": 0,
           "fillGradient": 0,
           "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 12,
-            "y": 5
-          },
-          "hiddenSeries": false,
-          "id": 15,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "httpcomponents_httpclient_pool_route_max_default{service=~\"$service\"}",
-              "interval": "",
-              "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Client Connections: Max Per Route",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:615",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:616",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 8,
+            "h": 11,
+            "w": 24,
             "x": 0,
-            "y": 14
+            "y": 33
           },
           "hiddenSeries": false,
-          "id": 4,
+          "id": 85,
           "legend": {
+            "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
+            "current": true,
+            "max": true,
+            "min": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
@@ -2708,213 +2661,44 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "httpcomponents_httpclient_pool_total_pending{service=~\"$service\"}",
+              "expr": "reactor_netty_connection_provider_total_connections{service=~\"$service\"}",
               "interval": "",
-              "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
+              "legendFormat": "Max",
               "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Client Connections: Pending",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:667",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
             },
-            {
-              "$$hashKey": "object:668",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "description": "",
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 8,
-            "x": 8,
-            "y": 14
-          },
-          "hiddenSeries": false,
-          "id": 6,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
             {
               "exemplar": true,
-              "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"leased\"}",
+              "expr": "reactor_netty_connection_provider_active_connections{service=~\"$service\"}",
+              "hide": false,
               "interval": "",
-              "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Client Connections: Leased",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:771",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
+              "legendFormat": "Active",
+              "refId": "B"
             },
-            {
-              "$$hashKey": "object:772",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 8,
-            "x": 16,
-            "y": 14
-          },
-          "hiddenSeries": false,
-          "id": 5,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
             {
               "exemplar": true,
-              "expr": "httpcomponents_httpclient_pool_total_connections{service=~\"$service\",state=\"available\"}",
+              "expr": "reactor_netty_connection_provider_idle_connections{service=~\"$service\"}",
+              "hide": false,
               "interval": "",
-              "legendFormat": "{{service}}#{{version}}@{{instance}}: {{ httpclient }}",
-              "refId": "A"
+              "legendFormat": "Idle",
+              "refId": "C"
+            },
+            {
+              "exemplar": true,
+              "expr": "reactor_netty_connection_provider_pending_connections{service=~\"$service\"}",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Pending",
+              "refId": "D"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Client Connections: Available",
+          "title": "Netty Client Connections",
           "tooltip": {
             "shared": true,
-            "sort": 2,
+            "sort": 0,
             "value_type": "individual"
           },
           "type": "graph",
@@ -2927,7 +2711,7 @@
           },
           "yaxes": [
             {
-              "$$hashKey": "object:719",
+              "$$hashKey": "object:563",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -2936,7 +2720,7 @@
               "show": true
             },
             {
-              "$$hashKey": "object:720",
+              "$$hashKey": "object:564",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -2951,7 +2735,7 @@
           }
         }
       ],
-      "title": "Client Connections (Apache Client)",
+      "title": "Client Connections (Netty)",
       "type": "row"
     },
     {
@@ -2961,7 +2745,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 6
       },
       "id": 77,
       "panels": [
@@ -3293,7 +3077,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 7
       },
       "id": 69,
       "panels": [
@@ -3480,8 +3264,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "http11-webflux-delegate",
-          "value": "http11-webflux-delegate"
+          "text": "http11-delegate",
+          "value": "http11-delegate"
         },
         "datasource": null,
         "definition": "label_values(up,service)",

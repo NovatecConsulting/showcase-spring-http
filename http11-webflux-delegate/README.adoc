@@ -38,3 +38,10 @@ curl -v http://curl -s http://localhost:8700/actuator/prometheus
 === Server
 
 This application accepts _HTTP/1.1_ requests. To provide this capability this application depends `org.springframework.boot:spring-boot-starter-webflux` which in turn depends on `org.springframework.boot:spring-boot-starter-reactor-netty` which uses an embedded _Tomcat_.
+
+== See
+
+* https://www.baeldung.com/spring-boot-reactor-netty
+* https://piotrminkowski.com/2020/03/30/a-deep-dive-into-spring-webflux-threading-model/
+* https://gist.github.com/taxone/cb99ea494466c659cdc12ae419f82814
+* https://stackoverflow.com/questions/17355593/why-is-epoll-faster-than-select

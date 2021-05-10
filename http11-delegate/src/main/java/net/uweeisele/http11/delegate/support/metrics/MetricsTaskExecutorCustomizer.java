@@ -1,4 +1,4 @@
-package net.uweeisele.http11.webflux.delegate.support.metrics;
+package net.uweeisele.http11.delegate.support.metrics;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
