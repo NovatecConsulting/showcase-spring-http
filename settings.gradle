@@ -1,9 +1,9 @@
 rootProject.name = 'showcase-spring-http'
 
-include 'http11-server'
-include 'http11-delegate'
-include 'http11-webflux-server'
-include 'http11-webflux-delegate'
+include 'web-server'
+include 'web-delegate'
+include 'webflux-server'
+include 'webflux-delegate'
 
 include 'hawtio'
 include 'jolokia-webflux'
