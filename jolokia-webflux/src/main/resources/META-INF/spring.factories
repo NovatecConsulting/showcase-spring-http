@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.uweeisele.jolokia.webflux.JolokiaEndpointAutoConfiguration
+de.novatec.jolokia.webflux.JolokiaEndpointAutoConfiguration

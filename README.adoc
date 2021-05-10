@@ -306,6 +306,7 @@ time curl --http2-prior-knowledge http://localhost:8700/delegate/subcalldemo
 == Next Steps
 
 * More detailed explanation about monitoring and activation of metrics for connection pools, server and thread pools.
+* Short comparison of HTTP/1.1, HTTP/2 and HTTP3
 * Spring Web: Use RestTemplate with DeferredResult (https://www.baeldung.com/spring-deferred-result)
 * Spring Web: Tomcat and Apache Client (RestTemplate) with HTTP/2 and Streaming (TEXT_EVENT_STREAM_VALUE) (in combination with DeferredResult)
 * Spring WebFlux: Evaluate incubator HTTP/3 (https://netty.io/news/2021/03/04/http3-0-0-1-Final.html and https://netty.io/news/2020/12/09/quic-0-0-1-Final.html)
