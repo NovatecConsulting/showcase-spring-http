@@ -81,6 +81,7 @@ services:
       TARGET_SERVER_URL: http://webflux-server:8080
       #NETTY_HTTP_SERVER_PROTOCOLS: h2c
       #NETTY_HTTP_CLIENT_PROTOCOLS: h2c
+      #NETTY_EVENT_LOOP_WORKER_COUNT: 1
     labels:
       SERVICE_8080_NAME: "webflux-delegate"
       SERVICE_8080_TAGS: "app"
