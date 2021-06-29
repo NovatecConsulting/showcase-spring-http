@@ -3,6 +3,7 @@ package de.novatec.webflux.delegate.config;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.ReactorNettyHttpClientMapper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.PropertyMapper;
+import org.springframework.boot.web.embedded.netty.NettyServerCustomizer;
 import org.springframework.boot.web.reactive.function.client.WebClientCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,6 +88,19 @@ public class NettyHttpClientConfiguration {
                 transformedHttpClient = transformedHttpClient.responseTimeout(properties.getResponseTimeout());
             }
             return transformedHttpClient;
+        };
+    }
+
+    @Bean
+    public ReactorNettyHttpClientMapper http2NettyHttpClientCustomizer(NettyHttpClientProperties properties){
+        return httpClient -> {
+            if (properties.getHttp2() != null){
+                return httpClient.http2Settings(builder -> {
+                    final PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
+                    map.from(properties.getHttp2().getMaxConcurrentStreams()).to(builder::maxConcurrentStreams);
+                });
+            }
+            return httpClient;
         };
     }
 

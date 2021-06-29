@@ -3,13 +3,8 @@ package de.novatec.webflux.delegate.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import reactor.netty.http.HttpProtocol;
 import reactor.netty.resources.ConnectionProvider;
-import reactor.netty.resources.LoopResources;
 
 import java.time.Duration;
-import java.util.Collections;
-import java.util.List;
-
-import static java.util.Collections.singletonList;
 
 @ConfigurationProperties("netty.http-client")
 public class NettyHttpClientProperties {
@@ -48,6 +43,13 @@ public class NettyHttpClientProperties {
     private Duration responseTimeout;
 
     private Connection connection = new Connection();
+
+
+    /**
+     * Optional configuration which is only applied if {@link #protocols} contains
+     * {@link HttpProtocol#H2C} or {@link HttpProtocol#H2}.
+     */
+    private Http2 http2;
 
     public boolean isMetrics() {
         return metrics;
@@ -95,6 +97,14 @@ public class NettyHttpClientProperties {
 
     public void setConnection(Connection connection) {
         this.connection = connection;
+    }
+
+    public Http2 getHttp2() {
+        return http2;
+    }
+
+    public void setHttp2(Http2 http2) {
+        this.http2 = http2;
     }
 
     public static class Connection {
@@ -221,6 +231,23 @@ public class NettyHttpClientProperties {
 
         public void setMaxLifeTime(Duration maxLifeTime) {
             this.maxLifeTime = maxLifeTime;
+        }
+    }
+
+    public static class Http2 {
+
+        /**
+         * The maximum number of concurrent streams.
+         * <p>Defaults to unlimited.
+         */
+        private Integer maxConcurrentStreams;
+
+        public Integer getMaxConcurrentStreams() {
+            return maxConcurrentStreams;
+        }
+
+        public void setMaxConcurrentStreams(Integer maxConcurrentStreams) {
+            this.maxConcurrentStreams = maxConcurrentStreams;
         }
     }
 
